@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#986aa3">
+  <meta name="description" content="Book Drop: your personal book discovery space.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Book Drop</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div><div class="brand">book drop<span>.</span></div><div class="tagline">YOUR PERSONAL BOOKISH SPACE</div></div>
+      <button class="icon-button" id="themeShortcut" aria-label="Choose theme">🎨</button>
+    </header>
+
+    <main>
+      <section class="page active" id="homePage">
+        <div class="welcome"><div><p class="eyebrow">YOUR LITTLE BOOKISH CORNER</p><h1>Hello, bookworm <span id="themeEmoji">🦋</span></h1><p class="muted">What have you discovered today?</p></div></div>
+        <section class="drop-panel">
+          <p class="panel-kicker">🔗 FIND MY BOOKS</p>
+          <h2>Found a book somewhere?</h2>
+          <p>Paste a social post, video or book link. Save it here so you can come back to it.</p>
+          <form id="discoveryForm">
+            <input id="sourceUrl" type="url" placeholder="Paste TikTok, Instagram, YouTube or book link…" aria-label="Book or social media link">
+            <button class="primary" type="submit">✦ Save discovery</button>
+          </form>
+          <p class="tiny" id="discoveryMessage">Link saving works in this starter build. Automatic video/book recognition will be connected in a later step.</p>
+        </section>
+        <section class="stats">
+          <button class="stat" data-go="discoveries"><strong id="discoveryCount">0</strong><span>Discoveries</span></button>
+          <button class="stat" data-go="tbr"><strong id="tbrCount">0</strong><span>My TBR</span></button>
+          <button class="stat" data-go="audio"><strong id="audioCount">0</strong><span>Audio TBR</span></button>
+          <button class="stat" data-go="wishlist"><strong id="wishlistCount">0</strong><span>Wishlist</span></button>
+        </section>
+        <section class="section-head"><div><p class="eyebrow">YOUR COLLECTION</p><h2>Recently added</h2></div><button class="text-button" data-go="library">View library →</button></section>
+        <div id="recentBooks" class="book-list empty-state">Your next favourite book starts here. Add one below or save a discovery link.</div>
+        <button class="secondary wide" data-go="add">＋ Add a book manually</button>
+      </section>
+
+      <section class="page" id="discoveriesPage">
+        <p class="eyebrow">THE INTERNET SENT YOU HERE</p><h1>Discovery inbox 📥</h1><p class="muted">Links you've saved for later. Turn a discovery into a book record when you're ready.</p>
+        <div id="discoveryList" class="stack empty-state">No discoveries yet. Paste a link on your home screen.</div>
+      </section>
+
+      <section class="page" id="libraryPage">
+        <p class="eyebrow">ALL YOUR BOOKS IN ONE PLACE</p><h1>My library 📚</h1>
+        <input id="librarySearch" class="search" type="search" placeholder="Search titles, authors or series…">
+        <div class="chips" id="shelfFilters">
+          <button class="chip selected" data-filter="all">All</button><button class="chip" data-filter="tbr">TBR</button><button class="chip" data-filter="reading">Reading</button><button class="chip" data-filter="read">Read</button><button class="chip" data-filter="dnf">DNF</button><button class="chip" data-filter="owned">Owned</button><button class="chip" data-filter="wishlist">Wishlist</button>
+        </div>
+        <div id="libraryList" class="book-list empty-state">Your shelves are waiting for their first residents.</div>
+        <button class="primary wide" data-go="add">＋ Add a book</button>
+      </section>
+
+      <section class="page" id="audioPage">
+        <p class="eyebrow">FOR YOUR EARHOLES 🎧</p><h1>Audio corner</h1><p class="muted">Books in your collection marked as having an audiobook.</p>
+        <div id="audioList" class="book-list empty-state">Your audio adventures will appear here.</div>
+      </section>
+
+      <section class="page" id="seriesPage">
+        <p class="eyebrow">NO MORE ACCIDENTAL BOOK FOUR</p><h1>Series tracker 🧩</h1><p class="muted">Group books by series and keep your reading order close.</p>
+        <div id="seriesList" class="stack empty-state">Add a series name and book number to a book to see it here.</div>
+      </section>
+
+      <section class="page" id="themesPage">
+        <p class="eyebrow">MAKE YOUR SPACE YOURS</p><h1>Choose your atmosphere 🎨</h1><p class="muted">Your theme changes the look, never the way your library works.</p>
+        <div class="theme-grid" id="themeGrid"></div>
+      </section>
+
+      <section class="page" id="addPage">
+        <p class="eyebrow">A NEW STORY FOR YOUR SHELF</p><h1>Add a book ✨</h1>
+        <form id="bookForm" class="form-card">
+          <label>Book title<input name="title" required placeholder="Title"></label>
+          <label>Author<input name="author" placeholder="Author"></label>
+          <label>Series name<input name="series" placeholder="Leave blank if standalone"></label>
+          <div class="two">
+            <label>Book number<input name="number" placeholder="e.g. 2"></label>
+            <label>Total books<input name="total" type="number" min="1" placeholder="e.g. 5"></label>
+          </div>
+          <label>Shelf<select name="shelf"><option value="tbr">TBR</option><option value="reading">Currently reading</option><option value="read">Read</option><option value="dnf">DNF</option><option value="owned">Owned</option><option value="wishlist">Wishlist</option></select></label>
+          <label>Genre / notes<input name="genre" placeholder="Dark romance, fantasy…"></label>
+          <label class="check"><input name="audio" type="checkbox"> Audiobook available (confirmed by me)</label>
+          <label class="check"><input name="ebook" type="checkbox"> eBook available (confirmed by me)</label>
+          <label class="check"><input name="print" type="checkbox"> Physical edition available (confirmed by me)</label>
+          <button class="primary wide" type="submit">Add to my library</button>
+        </form>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item selected" data-page="home"><span>⌂</span>Home</button>
+      <button class="nav-item" data-page="discoveries"><span>📥</span>Inbox</button>
+      <button class="nav-item" data-page="library"><span>📚</span>Library</button>
+      <button class="nav-item" data-page="audio"><span>🎧</span>Audio</button>
+      <button class="nav-item" data-page="themes"><span>🎨</span>Themes</button>
+    </nav>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
